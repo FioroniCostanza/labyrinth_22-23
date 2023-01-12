@@ -62,7 +62,7 @@ def draw_path(filepath, path):
     image = Image.open(filepath)
     pixels = image.load()
     # Disegna il percorso sul labirinto
-    for x, y in path:
+    for x, y in path[1,(len(path)-1)]:
         pixels[y, x] = (0, 0, 255) # Assegniamo un colore blu
     # Salva l'immagine con il percorso
     image.save("path_maze.tiff")
@@ -71,4 +71,4 @@ def draw_path(filepath, path):
 filepath = "maze.tiff"
 maze, start, end = image_to_maze(filepath)
 path = dfs(maze, start, end)
-draw_path("maze.tiff", path)
+draw_path(drawpath, path)
