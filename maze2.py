@@ -89,6 +89,6 @@ maze, start, end = image_to_maze(filepath)
 paths = []
 for i in range(len(start)):
     paths.append(find_all_paths(maze, start[i], end))
-    draw_path("maze3.tiff", paths[i],i)
+    draw_path(filepath, paths[i],i)
 
 
