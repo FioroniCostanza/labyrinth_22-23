@@ -49,7 +49,7 @@ def image_to_maze(filepath):
     maze = [] 
     start = []
     # Scansiona i pixel dell'immagine per creare la matrice del labirinto
-    # S = inizio, E = fine, # = muro, . = cammino
+    # = muro, . = cammino
     for i in range(image.height):
         maze_row = []
         for j in range(image.width):
