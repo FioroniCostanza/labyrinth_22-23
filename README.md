@@ -30,7 +30,7 @@ posizione di arrivo;
 che sono triple costituite da una coppia di indici che indicano 
     una posizione e un valore intero da 1 a 15 che indica il costo.
 
-##Esempio
+## Esempio
 Inserire il path riferito all’immagine che si vuole analizzare:
 ```console
 filepath = “indata/20-10_marked.tiff”
