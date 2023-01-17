@@ -59,7 +59,7 @@ def image_to_mazes(filepath):
         maze.append(maze_row)
     return maze, start, end
 
-def find_all_paths(maze, start, end, max_search_depth=None):
+def find_shortest_path(maze, start, end, max_search_depth=None):
     """
    Questa funzione svolge una ricerca del percorso più breve all'interno del 
    labirinto, utilizzando l'algoritmo bread-first search.
@@ -201,5 +201,5 @@ maze, start, end = image_to_mazes(filepath)
 paths = []
 peso = []
 for i in range(len(start)):
-    paths.append(find_all_paths(maze, start[i], end, 500))
+    paths.append(find_shortest_path(maze, start[i], end, 500))
     peso.append(draw_path(filepath, paths[i], i, maze))
