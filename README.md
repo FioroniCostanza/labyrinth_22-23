@@ -1,4 +1,4 @@
-rogetto finale del corso di Programmazione a.a. 2022-2023.
+Progetto finale del corso di Programmazione a.a. 2022-2023.
 
 Il programma è in grado di calcolare il percorso a peso minimo del labirinto da un determinato punto di partenza, restituendo a parità di costo , il percorso di lunghezza minima.
 
