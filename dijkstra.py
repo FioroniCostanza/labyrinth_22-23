@@ -328,7 +328,7 @@ def maze_to_image(maze,start,end):
 
 
 # Esempio di utilizzo
-filepath = "20-10_marked.tiff"
+filepath = input("Inserisci il percorso del file (.json/.tiff/.png):")
 maze, start, end, image = load_maze(filepath)
 paths = []
 peso = []
