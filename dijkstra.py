@@ -4,7 +4,6 @@ import json
 import os
 import copy
 
-
 def find_shortest_path_by_weight(maze, start, end):
     """
    Questa funzione svolge una ricerca del percorso a peso minimo all'interno del 
@@ -21,7 +20,6 @@ def find_shortest_path_by_weight(maze, start, end):
        Indica la posizione di partenza.
    end : tuple
        Indica la posizione di arrivo.
-
    Returns
    -------
    paths : list 
@@ -30,15 +28,15 @@ def find_shortest_path_by_weight(maze, start, end):
 
     # Creiamo una coda vuota per tener traccia dei percorsi
     queue = []
-    # Iniziamo l'algoritmo con il primo nodo e un peso di 0
-    # Iniziamo anche la lista del percorso con solo il primo nodo
+    # Iniziamo l'algoritmo con il primo nodo, con un peso pari a 0
+    # e inizializziamo il percorso inserendo al suo interno solo il primo nodo
     heapq.heappush(queue, (0, start, [start]))
     
     # Creiamo un dizionario per tenere traccia dei nodi visitati con il loro peso minimo
     visited = {start: 0}
     
     # Creiamo una variabile per tener traccia del peso totale del percorso
-    weight_tot = None
+    weight_tot = 0
     
     # Fintanto che ci sono nodi nella coda
     while queue:
@@ -49,8 +47,7 @@ def find_shortest_path_by_weight(maze, start, end):
             # Assegniamo il peso totale e restituiamo il percorso ottenuto
             weight_tot = curr_weight
             return path, weight_tot
-        # Se non siamo ancora arrivati alla fine:
-        # Per ogni posizione adiacente al nodo corrente 
+        # Altrimenti, per ogni posizione adiacente al nodo corrente si verifica se esse siano state già visitate
         for next_pos, weight in get_adjacent_positions(maze, curr_pos):
             # Se la posizione adiacente non è stata visitata
             if next_pos not in visited:
@@ -63,7 +60,7 @@ def find_shortest_path_by_weight(maze, start, end):
                 new_path.append(next_pos)
                 # Inseriamo la posizione adiacente con il nuovo peso totale e il nuovo percorso nella coda
                 heapq.heappush(queue, (new_weight, next_pos, new_path))
-    # Se non ci sono stati percorsi validi, ritorniamo None
+    # Se non ci sono percorsi validi, ritorna un valore nullo (None)
     return None, weight_tot
 
 def get_adjacent_positions(maze, pos):
@@ -89,7 +86,7 @@ def get_adjacent_positions(maze, pos):
             valid_positions.append(((i,j),maze[i][j]))
     return valid_positions
             
-def image_to_maze(filepath):
+def image_to_maze(image):
     """
     Questa funzione trasforma l'immagine in ingresso in una matrice 
     costituita da:
@@ -104,7 +101,7 @@ def image_to_maze(filepath):
           
     Parameters
     ----------
-    filepath : str
+    image : image file
     
     Returns
     -------
@@ -117,9 +114,6 @@ def image_to_maze(filepath):
     image: TiffImageFile
         È l'immagine ottenuta da filepath.
     """
-
-    # Apre l'immagine del labirinto
-    image = Image.open(filepath)
     # Converte l'immagine in una matrice di pixel
     pixels = image.load()
     # Crea una matrice vuota per il labirinto
@@ -132,24 +126,24 @@ def image_to_maze(filepath):
         maze_row = []
         for j in range(image.width):
             pixel = pixels[j, i]
-            # convertiamo il pixel in un numero
+            # convertiamo il pixel in un numero, -1 se è un muro, 0 altrimenti
             if pixel == (255, 255, 255): # Pixel bianco
-                maze_row.append(0) # cammino
+                maze_row.append(0)
             elif pixel == (0, 0, 0): # Pixel nero
-                maze_row.append(-1) # muro
+                maze_row.append(-1)
             elif pixel == (0, 255, 0): # Pixel verde
-                maze_row.append(0) # inizio
+                maze_row.append(0)
                 start.append((i, j))
             elif pixel == (255, 0, 0): # Pixel rosso
-                maze_row.append(0) # fine
+                maze_row.append(0)
                 end = (i, j)
             else:
-                # utilizziamo il valore del pixel come peso
+                # in tal caso utilizziamo il valore del pixel come peso
                 maze_row.append(pixel[0] // 16)
         maze.append(maze_row)
     return maze, start, end, image
 
-def json_to_maze(filepath):
+def json_to_maze(data):
     """
     Questa funzione trasforma il Json in ingresso in una matrice 
     costituita da:
@@ -164,8 +158,10 @@ def json_to_maze(filepath):
           
     Parameters
     ----------
-    filepath : str
-
+    data : dict
+        Dizionario contenente le informazioni per convertire il json in una 
+        matrice rappresentante il labirinto
+    
     Returns
     -------
     maze : list
@@ -177,9 +173,6 @@ def json_to_maze(filepath):
     image: TiffImageFile
         È l'immagine Tiff del labirinto descritto dal Json
     """
-    # Legge il file JSON
-    with open(filepath) as json_file:
-        data = json.load(json_file)
 
     # Crea una matrice vuota per il labirinto
     maze = []
@@ -218,13 +211,13 @@ def json_to_maze(filepath):
         peso = costo[2]
         maze[i][j] = peso
     
-    # SI richiama la funzione maze_to_image che prende in ingresso la matrice
-    # appena generata e crea un file Tiff del labirinto associato
+    # Si richiama la funzione maze_to_image in modo da avere l'immagine del labirinto appena generato
     image = maze_to_image(maze,start,end)
+
     return maze, start, end, image
 
 
-def draw_path(image, path, index, maze):
+def draw_path(image, path, index):
     """
     Questa funzione colora sull' immagine del labirinto di partenza i percorsi possibili, colorandoli
     in maniera differente per ogni punto di partenza e salvandoli in immagini
@@ -238,24 +231,23 @@ def draw_path(image, path, index, maze):
         Lista di tutte i percorsi che partono da una stessa casella di partenza.
         
     index : list
-        Un intero che rappresenta a quale casella di partenza fà riferimento il percorso.
+        Un intero che identifica la casella di partenza a cui fa riferimento il percorso.
     Returns
     -------
     None.
     """
-    # Serve creare una nuova immagine uguale a image e non solo un riferimento a questa
+
+    # Si crea una copia di image in modo da avere un'immagine da modificare e non un riferimento
+
     new_image = copy.deepcopy(image)
     colors = [(0,255,255),(255,0,255),(0,128,0),(128,0,128),(255,255,0),(192,192,192)]
     name = filepath.split('.')[0] + '_start_' + str(index)
-    # Apre l'immagine del labirinto
+    # Apre l'immagine del labirinto e disegna il percorso
     pixels = new_image.load()
-    # Disegna il percorso sul labirinto
     for x, y in path[1:(len(path)-1)]:
-        pixels[y, x] = colors[index] # Assegniamo un colore blu
-        # Salva l'immagine con il percorso
+        pixels[y, x] = colors[index]    # Il colore del percorso in tal modo varia a seconda della posizione di partenza
+        # Salva il labirinto risolto
     new_image.save(f'./Percorsi/{name}_path_{i+1}_dijkstra.tiff')
-   
-
 
 def load_maze(filepath):
     '''
@@ -273,14 +265,21 @@ def load_maze(filepath):
     None
 
     '''
+
     # Estrae l'estensione dalla stringa filepath
     _, file_extension = os.path.splitext(filepath)
-    # Se è un file .tiff richiama la funzione image_to_maze
-    if file_extension == ".tiff":
-        return image_to_maze(filepath)
-    # Se è un file .json richiama la funzione json_to_maze
+    # Se in ingresso ho un immagine richiama la funzione image_to_maze
+    if file_extension in [".jpeg",".png",]:
+        img = Image.open(filepath)
+        return image_to_maze(img)
+    elif file_extension == ".tiff":
+        image = Image.open(filepath)
+        return image_to_maze(image)
+    # Se in ingresso ho un file json richiama la funzione json_to_maze
     elif file_extension == ".json":
-        return json_to_maze(filepath)
+        with open(filepath) as json_file:
+            data = json.load(json_file)
+        return json_to_maze(data)
     # In qualsiasi altro caso, genera un errore in quanto il formato non è supportato
     else:
         raise ValueError("Formato file non supportato")
@@ -288,7 +287,7 @@ def load_maze(filepath):
 def maze_to_image(maze,start,end):
     '''
     Questa funzione prende in ingresso la matrice rappresentante il labirinto
-    generata da json_to_maze e genera un'immagine Tiff ad esso associata.
+    generata da json_to_maze e genera un'immagine Tiff ad essa associata.
 
     Parameters
     ----------
@@ -302,7 +301,7 @@ def maze_to_image(maze,start,end):
     Returns
     -------
     image: TiffImageFile
-        È l'immagine Tiff del labirinto descritto da Maze
+        È l'immagine Tiff del labirinto descritto dalla variabile Maze
 
     '''
     # Crea un'immagine vuota con le dimensioni della matrice del labirinto
@@ -316,7 +315,7 @@ def maze_to_image(maze,start,end):
             elif maze[i][j] == 0:
                 pixels[j, i] = (255, 255, 255) # Cammino = bianco
             else:
-                pixels[j, i] = (maze[i][j]*16, maze[i][j]*16, maze[i][j]*16) # Altri valori = grigio scuro
+                pixels[j, i] = (maze[i][j]*16, maze[i][j]*16, maze[i][j]*16) # Altri valori = grigio
     i = end[0]
     j = end[1]
     pixels[j,i] = (255, 0, 0)
@@ -327,8 +326,7 @@ def maze_to_image(maze,start,end):
     return image
 
 
-# Esempio di utilizzo
-filepath = input("Inserisci il percorso del file (.json/.tiff/.png):")
+filepath = input("Inserisci il percorso del file (.json/.tiff/.png/.jpeg): ")
 maze, start, end, image = load_maze(filepath)
 paths = []
 peso = []
@@ -339,18 +337,19 @@ for i in range(len(start)):
     
 json_data = []
 
+# Genera e riempie un dizionario path_info che conterrà le informazioni salvate nel json in uscita
 for path,i in zip(paths,range(len(start))):
     path_info = {
     "start": start[i],
     "end": end,
    }
     if path is not None:
-        draw_path(image, path,i,maze) 
+        draw_path(image, path,i)
         path_info["length"] = len(path)
         path_info["weight"] = peso[i]
     else:
         no_path = "Nessun percorso possibile dalla posizione di partenza selezionata"
-        path_info["length"] = no_path
+        path_info["length"] =  no_path
     json_data.append(path_info)
     
 # salva le informazioni del percorso in un file JSON
