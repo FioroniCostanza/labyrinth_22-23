@@ -4,6 +4,7 @@ import json
 import os
 import copy
 
+
 def find_shortest_path_by_weight(maze, start, end):
     """
    Questa funzione svolge una ricerca del percorso a peso minimo all'interno del 
@@ -25,18 +26,17 @@ def find_shortest_path_by_weight(maze, start, end):
    paths : list 
        Restituisce il percorso a peso minimo trovati tra partenza e arrivo.
    """
-
     # Creiamo una coda vuota per tener traccia dei percorsi
     queue = []
-    # Iniziamo l'algoritmo con il primo nodo, con un peso pari a 0
-    # e inizializziamo il percorso inserendo al suo interno solo il primo nodo
+   # Iniziamo l'algoritmo con il primo nodo, con un peso pari a 0
+   # e inizializziamo il percorso inserendo al suo interno solo il primo nodo
     heapq.heappush(queue, (0, start, [start]))
     
     # Creiamo un dizionario per tenere traccia dei nodi visitati con il loro peso minimo
     visited = {start: 0}
     
     # Creiamo una variabile per tener traccia del peso totale del percorso
-    weight_tot = 0
+    weight_tot = None
     
     # Fintanto che ci sono nodi nella coda
     while queue:
@@ -106,13 +106,13 @@ def image_to_maze(image):
     Returns
     -------
     maze : list
-        È una matrice che rappresenta l'immagine di partenza.
+        E' una matrice che rappresenta l'immagine di partenza.
     start : list
-        È una lista delle coordinate di tutte le caselle verdi (punti di partenza)
+        E' una lista delle coordinate di tutte le caselle verdi (punti di partenza)
     end : tuple
-        È una lista con le coordinate di tutte le caselle rosse (punti di arrivo)
+        E' una lista con le coordinate di tutte le caselle rosse (punti di arrivo)
     image: TiffImageFile
-        È l'immagine ottenuta da filepath.
+        E' l'immagine ottenuta da filepath.
     """
     # Converte l'immagine in una matrice di pixel
     pixels = image.load()
@@ -127,18 +127,20 @@ def image_to_maze(image):
         for j in range(image.width):
             pixel = pixels[j, i]
             # convertiamo il pixel in un numero, -1 se è un muro, 0 altrimenti
-            if pixel == (255, 255, 255): # Pixel bianco
-                maze_row.append(0)
+            if pixel == (255, 255, 255):
+                maze_row.append(0) # cammino
             elif pixel == (0, 0, 0): # Pixel nero
-                maze_row.append(-1)
+                maze_row.append(-1) # muro
             elif pixel == (0, 255, 0): # Pixel verde
-                maze_row.append(0)
+                maze_row.append(0) # inizio
                 start.append((i, j))
             elif pixel == (255, 0, 0): # Pixel rosso
-                maze_row.append(0)
+            # il rosso viene importato come (254,0,0) nel caso di una jpg
+                maze_row.append(0) # fine
                 end = (i, j)
-            else:
+            elif pixel[0] == pixel[1] == pixel[2]:
                 # in tal caso utilizziamo il valore del pixel come peso
+                # infatti i pixel grigi sono sempre nella forma (x,x,x)
                 maze_row.append(pixel[0] // 16)
         maze.append(maze_row)
     return maze, start, end, image
@@ -165,13 +167,13 @@ def json_to_maze(data):
     Returns
     -------
     maze : list
-        È una matrice che rappresenta l'immagine di partenza.
+        E' una matrice che rappresenta l'immagine di partenza.
     start : list
-        È una lista delle coordinate di tutte le caselle verdi (punti di partenza)
+        E' una lista delle coordinate di tutte le caselle verdi (punti di partenza)
     end : tuple
-        È una lista con le coordinate di tutte le caselle rosse (punti di arrivo)
+        E' una lista con le coordinate di tutte le caselle rosse (punti di arrivo)
     image: TiffImageFile
-        È l'immagine Tiff del labirinto descritto dal Json
+        E' l'immagine Tiff del labirinto descritto dal Json
     """
 
     # Crea una matrice vuota per il labirinto
@@ -213,11 +215,11 @@ def json_to_maze(data):
     
     # Si richiama la funzione maze_to_image in modo da avere l'immagine del labirinto appena generato
     image = maze_to_image(maze,start,end)
-
+    
     return maze, start, end, image
 
 
-def draw_path(image, path, index):
+def draw_path(image, path,index,ext=".tiff"):
     """
     Questa funzione colora sull' immagine del labirinto di partenza i percorsi possibili, colorandoli
     in maniera differente per ogni punto di partenza e salvandoli in immagini
@@ -231,25 +233,30 @@ def draw_path(image, path, index):
         Lista di tutte i percorsi che partono da una stessa casella di partenza.
         
     index : list
-        Un intero che identifica la casella di partenza a cui fa riferimento il percorso.
+        Un intero che rappresenta a quale casella di partenza fà riferimento il percorso.
+    
+    ext : str
+        Stringa che contiene l'estensione in cui salvare l'uscita, di default 
+        è impostata su ".tiff" 
+        
     Returns
     -------
     None.
     """
-
-    # Si crea una copia di image in modo da avere un'immagine da modificare e non un riferimento
-
+    # Serve creare una nuova immagine uguale a image e non solo un riferimento a questa
     new_image = copy.deepcopy(image)
     colors = [(0,255,255),(255,0,255),(0,128,0),(128,0,128),(255,255,0),(192,192,192)]
     name = filepath.split('.')[0] + '_start_' + str(index)
     # Apre l'immagine del labirinto e disegna il percorso
     pixels = new_image.load()
+    # Disegna il percorso sul labirinto
     for x, y in path[1:(len(path)-1)]:
-        pixels[y, x] = colors[index]    # Il colore del percorso in tal modo varia a seconda della posizione di partenza
+        pixels[y, x] = colors[index]  # Il colore del percorso in tal modo varia a seconda della posizione di partenza
         # Salva il labirinto risolto
-    new_image.save(f'./Percorsi/{name}_path_{i+1}_dijkstra.tiff')
+    new_image.save(f'./Percorsi/{name}_path_{i+1}_dijkstra{ext}',format='PNG')
+   
 
-def load_maze(filepath):
+def load_maze(filepath,file_extension):
     '''
     Questa funzione prende in ingresso il path del file in input e richiama
     la funzione corretta per la conversione in matrice facendo un check sulla
@@ -259,30 +266,37 @@ def load_maze(filepath):
     ----------
     filepath : str
         Path del file di input
+        
+    file_extension : str
+        Stringa che contiene l'estensione in cui salvare l'uscita, di default 
+        è impostata su ".tiff" 
+    
 
     Returns
     -------
     None
 
     '''
-
-    # Estrae l'estensione dalla stringa filepath
-    _, file_extension = os.path.splitext(filepath)
-    # Se in ingresso ho un immagine richiama la funzione image_to_maze
-    if file_extension in [".jpeg",".png",]:
+    # Se è un file immagine diverso da .tiff richiama la funzione image_to_maze
+    # solo dopo aver convertito l'immagine in RGB
+    if file_extension == ".png":
         img = Image.open(filepath)
+        img = img.convert("RGB")
         return image_to_maze(img)
-    elif file_extension == ".tiff":
+    if file_extension in [".tiff",".jpg",".jpeg"]:
+        # Apre l'immagine del labirinto
         image = Image.open(filepath)
         return image_to_maze(image)
-    # Se in ingresso ho un file json richiama la funzione json_to_maze
+    # Se è un file .json richiama la funzione json_to_maze
     elif file_extension == ".json":
+        # Legge il file JSON
         with open(filepath) as json_file:
             data = json.load(json_file)
         return json_to_maze(data)
     # In qualsiasi altro caso, genera un errore in quanto il formato non è supportato
     else:
         raise ValueError("Formato file non supportato")
+
 
 def maze_to_image(maze,start,end):
     '''
@@ -292,7 +306,7 @@ def maze_to_image(maze,start,end):
     Parameters
     ----------
     maze : list
-        È una matrice che rappresenta l'immagine di partenza.
+        E' una matrice che rappresenta l'immagine di partenza.
     start : list
         Lista delle posizioni di partenza del labirinto
     end : tuple
@@ -301,7 +315,7 @@ def maze_to_image(maze,start,end):
     Returns
     -------
     image: TiffImageFile
-        È l'immagine Tiff del labirinto descritto dalla variabile Maze
+        E' l'immagine Tiff del labirinto descritto da Maze
 
     '''
     # Crea un'immagine vuota con le dimensioni della matrice del labirinto
@@ -315,7 +329,7 @@ def maze_to_image(maze,start,end):
             elif maze[i][j] == 0:
                 pixels[j, i] = (255, 255, 255) # Cammino = bianco
             else:
-                pixels[j, i] = (maze[i][j]*16, maze[i][j]*16, maze[i][j]*16) # Altri valori = grigio
+                pixels[j, i] = (maze[i][j]*16, maze[i][j]*16, maze[i][j]*16) # Altri valori = grigio scuro
     i = end[0]
     j = end[1]
     pixels[j,i] = (255, 0, 0)
@@ -326,8 +340,10 @@ def maze_to_image(maze,start,end):
     return image
 
 
-filepath = input("Inserisci il percorso del file (.json/.tiff/.png/.jpeg): ")
-maze, start, end, image = load_maze(filepath)
+# Esempio di utilizzo
+filepath = input("Inserisci il percorso del file (.json/.tiff/.png):")
+_,ext = os.path.splitext(filepath)
+maze, start, end, image = load_maze(filepath,ext)
 paths = []
 peso = []
 for i in range(len(start)):
@@ -341,12 +357,15 @@ json_data = []
 for path,i in zip(paths,range(len(start))):
     path_info = {
     "start": start[i],
-    "end": end,
+    "end": end
    }
     if path is not None:
-        draw_path(image, path,i)
-        path_info["length"] = len(path)
-        path_info["weight"] = peso[i]
+        if ext == ".json":
+            draw_path(image, path,i) 
+        else:
+            draw_path(image, path,i,ext) 
+            path_info["length"] = len(path)
+            path_info["weight"] = peso[i]
     else:
         no_path = "Nessun percorso possibile dalla posizione di partenza selezionata"
         path_info["length"] =  no_path
@@ -355,7 +374,6 @@ for path,i in zip(paths,range(len(start))):
 # salva le informazioni del percorso in un file JSON
 with open(f'./Percorsi/{filepath}_path_info.json', "w") as f:
     json.dump(json_data, f)
-
 
 
   
