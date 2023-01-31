@@ -2,21 +2,6 @@ import json
 from dijkstra_algorithm import *
 
 def final_operations(maze):
-    """
-    Questa funzione genera un dizionario contentente le informazioni del percorso 
-    a peso minimo più breve, trovato per ogni punto di partenza. Inoltre, salva tutte 
-    le informazioni in un file JSON all'interno della cartella Percorsi.
-    
-    Parameters
-    ----------
-    maze : list
-        E' una matrice che rappresenta l'immagine di partenza.
-
-    Returns
-    -------
-    None.
-
-    """
     paths = []
     peso = []
     for i in range(len(maze.start)):
@@ -33,7 +18,7 @@ def final_operations(maze):
             "end": maze.end,
         }
         if path is not None:
-            maze.draw_path(maze.image, path, i)
+            maze.draw_path(path, i, maze.extension)
             path_info["length"] = len(path)
             path_info["weight"] = peso[i]
         else:

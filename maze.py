@@ -9,7 +9,7 @@ class Maze:
     def __init__(self,filepath):
         self.name, self.extension = os.path.splitext(filepath)
         self.labyrinth = None
-        self.start = None
+        self.start = []
         self.end = None
         self.image = None
 
