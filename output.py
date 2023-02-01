@@ -26,6 +26,7 @@ def output_generation(filepath, paths, peso, maze):
     -------
     None.
     """
+    
     # Si scompone filepath in nome del file ed estensione
     filename, file_ext = os.path.splitext(os.path.basename(filepath))
 
