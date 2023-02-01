@@ -8,20 +8,18 @@ class Path:
         Parameters
         ----------
         maze : Class
-            Contiene gli attributi della classe Maze
+            Contiene gli attributi e i metodi della classe Maze
 
         Returns
         -------
         None.
         """
-        self.maze = maze.maze
-        self.start = maze.start
-        self.end = maze.end
+        
         self.paths = []
         self.weight = []
         # Per ogni casella di partenza, calcola il percorso a peso minimo
-        for i in range(len(self.start)):
-            path, weight = self.find_shortest_path_by_weight(self.start[i],maze)
+        for i in range(len(maze.start)):
+            path, weight = self.find_shortest_path_by_weight(maze.start[i],maze)
             self.paths.append(path)
             self.weight.append(weight)
 
@@ -63,7 +61,7 @@ class Path:
             # Prendiamo l'elemento a peso minimo dalla coda e lo assegniamo alle variabili curr_weight, curr_pos e path
             curr_weight, curr_pos, path = heapq.heappop(queue)
             # Se il nodo corrente è quello finale
-            if curr_pos == self.end:
+            if curr_pos == maze.end:
                 # Assegniamo il peso totale e restituiamo il percorso ottenuto
                 weight_tot = curr_weight
                 return path, weight_tot
