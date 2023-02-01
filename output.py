@@ -71,7 +71,7 @@ def draw_path(filename, file_ext, maze, path, index):
     paths : list
         Lista di tutte i percorsi che partono da una stessa casella di partenza.
 
-    index : list
+    index : int
         Un intero che identifica la casella di partenza a cui fa riferimento il percorso.
     Returns
     -------
