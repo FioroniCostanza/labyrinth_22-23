@@ -48,7 +48,7 @@ class Path:
         visited = {self.start: 0}
         
         # Creiamo una variabile per tener traccia del peso totale del percorso
-        self.weight_tot = None
+        self.weight_tot = 0
         
         # Fintanto che ci sono nodi nella coda
         while queue:
@@ -92,7 +92,7 @@ class Path:
         adjacent_positions = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
         valid_positions = []
         for i,j in adjacent_positions:
-            if i>=0 and j>=0 and i<len(self.maze) and j<len(self.maze[0]) and self.maze[i][j]!=-1:
+            if i>=0 and j>=0 and i<len(self.maze) and j<len(self.maze[0]) and self.maze[i][j]!=0:
                 valid_positions.append(((i,j),self.maze[i][j]))
         return valid_positions
         

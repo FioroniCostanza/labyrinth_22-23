@@ -1,5 +1,6 @@
 import copy
 import json
+import os
 
 def output_generation(paths,peso,maze):
     """
@@ -80,5 +81,8 @@ def draw_path(maze, path, index):
         ext = maze.file_ext
     else:
         ext = '.tiff' # si imposta di default il formato ".tiff" per l'immagine generate nel caso in cui in ingresso si abbia un file json
+
+    if not os.path.exists('./Percorsi'):
+        os.makedirs('./Percorsi')
     new_image.save(f'./Percorsi/{maze.filename}_path_{index + 1}{ext}', format='PNG')
     

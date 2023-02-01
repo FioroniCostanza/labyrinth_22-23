@@ -21,7 +21,7 @@ class Maze:
         """
         self.filepath = filepath
         # Scomposizione del filepath in nome ed estensione
-        self.filename,self.file_ext = os.path.splitext(filepath)
+        self.filename,self.file_ext = os.path.splitext(os.path.basename(filepath))
         # Si richiama il metodo load_maze
         self.load_maze()
     
@@ -52,12 +52,12 @@ class Maze:
           Questa funzione trasforma l'immagine in ingresso in una matrice 
           costituita da:
               
-              - 0 se il colore RGB dei pixel è bianco, verde o rosso.
-              
-              - 1 se il colore RGB dei pixel è nero, quindi rappresenta il muro del 
+              - 0 se il colore RGB dei pixel è nero, quindi rappresenta il muro del
                 labirinto
+              
+              - 1 se il colore RGB dei pixel è bianco, verde o rosso.
                 
-              - un numero da 1 a 15 se il colore RGB è una tonalità di grigio, rappresentando in questo
+              - un numero da 2 a 16 se il colore RGB è una tonalità di grigio, rappresentando in questo
                 modo il peso di una casella
 
           """
@@ -75,19 +75,19 @@ class Maze:
                   pixel = pixels[j, i]
                   # Si converte il pixel in un numero, -1 se è un muro, 0 altrimenti
                   if pixel == (255, 255, 255):
-                      maze_row.append(0)
+                      maze_row.append(1)
                   elif pixel == (0, 0, 0): # Pixel nero
-                      maze_row.append(-1)
-                  elif pixel == (0, 255, 0): # Pixel verde
                       maze_row.append(0)
+                  elif pixel == (0, 255, 0): # Pixel verde
+                      maze_row.append(1)
                       self.start.append((i, j))
                   elif pixel == (255, 0, 0): # Pixel rosso
-                      maze_row.append(0)
+                      maze_row.append(1)
                       self.end = (i, j)
                   elif pixel[0] == pixel[1] == pixel[2]:
                       # in tal caso utilizziamo il valore del pixel come peso
                       # infatti i pixel grigi sono sempre nella forma (x,x,x)
-                      maze_row.append(pixel[0] // 16)
+                      maze_row.append((pixel[0] // 16) + 1)
               self.maze.append(maze_row)
           return self
       
@@ -122,17 +122,17 @@ class Maze:
         for i in range(data["altezza"]):
             maze_row = []
             for j in range(data["larghezza"]):
-                maze_row.append(0)
+                maze_row.append(1)
             self.maze.append(maze_row)
     
         # Popola la matrice con le pareti
         for wall in data["pareti"]:
             if wall["orientamento"] == "H":
                 for i in range(wall["lunghezza"]):
-                    self.maze[wall["posizione"][0]][wall["posizione"][1] + i] = -1
+                    self.maze[wall["posizione"][0]][wall["posizione"][1] + i] = 0
             elif wall["orientamento"] == "V":
                 for i in range(wall["lunghezza"]):
-                    self.maze[wall["posizione"][0] + i][wall["posizione"][1]] = -1
+                    self.maze[wall["posizione"][0] + i][wall["posizione"][1]] = 0
                     
         # Popola con le posizioni iniziali      
         for iniziale in data["iniziali"]:
@@ -173,12 +173,12 @@ class Maze:
         # Imposta i pixel dell'immagine in base alla matrice del labirinto
         for i in range(len(self.maze)):
             for j in range(len(self.maze[0])):
-                if self.maze[i][j] == -1:
+                if self.maze[i][j] == 0:
                     pixels[j, i] = (0, 0, 0) # Muro = nero
-                elif self.maze[i][j] == 0:
+                elif self.maze[i][j] == 1:
                     pixels[j, i] = (255, 255, 255) # Cammino = bianco
                 else:
-                    pixels[j, i] = (self.maze[i][j]*16, self.maze[i][j]*16, self.maze[i][j]*16) # Altri valori = grigio scuro
+                    pixels[j, i] = ((self.maze[i][j]-1)*16, (self.maze[i][j]-1)*16, (self.maze[i][j]-1)*16) # Altri valori = grigio scuro
         i = self.end[0]
         j = self.end[1]
         pixels[j,i] = (255, 0, 0)
