@@ -43,7 +43,7 @@ Una volta avviato il codice viene richiesto di inserire il percorso del file da 
 
     Inserisci il percorso del file (.json/.tiff/.png/.jpeg): 
 
-scelta l'immagine/il file JSON basta inserire il percorso associato al file: (Sia assoluto che relativo)
+scelta l'immagine/il file JSON basta inserire il percorso associato al file (sia assoluto che relativo):
 ```console  
 /Users/utente/Desktop/labyrinth_22-23/indata/30-20_marked.jpeg
 ```
