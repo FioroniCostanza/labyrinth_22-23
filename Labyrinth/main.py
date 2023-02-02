@@ -4,7 +4,8 @@ from output import output_generation
 
 # Richiede in input il file da elaborare
 filepath = input("Inserisci il percorso del file (.json/.tiff/.png/.jpeg): ").strip()
-# Richiama la classe Maze
+
+# Richiama le classi Maze e Path per calcolare i percorsi
 m = Maze(filepath)
 p = Path(m)
 
