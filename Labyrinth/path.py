@@ -3,12 +3,13 @@ import heapq
 
 class Path:
     def __init__(self, maze):
+        
         """
         Costruttore della classe Path
         Parameters
         ----------
         maze : Class
-            Contiene gli attributi e i metodi della classe Maze
+            Contiene i metodi e gli attributi della classe Maze
 
         Returns
         -------
@@ -24,12 +25,14 @@ class Path:
             self.weight.append(weight)
 
     def find_shortest_path_by_weight(self, start, maze):
+   
         """
         Questo metodo svolge una ricerca del percorso a peso minimo all'interno del
         labirinto, utilizzando l'algoritmo di Dijkstra.
-        Dando in ingresso il labirinto, il punto di partenza e il punto di arrivo,
-        la funzione restituirà una lista con tutte le tuple da percorrere tra Start
-        ed end.
+        Dando in ingresso il punto di partenza e un'istanza della classe Maze,
+        la funzione restituirà una lista con tutte le tuple corrispondenti alle posizioni
+        che intercorrono tra il punto di partenza e il punto di arrivo.
+        
         Parameters
         ----------
 
@@ -37,13 +40,14 @@ class Path:
             Contiene la posizione di partenza
 
         maze : Class
-            Contiene gli attributi della classe Maze
+            Contiene i metodi e gli attributi della classe Maze
 
         Returns
         -------
         paths : list
            Restituisce il percorso a peso minimo trovati tra partenza e arrivo.
         """
+        
         # Creiamo una coda vuota per tener traccia dei percorsi
         queue = []
         # Iniziamo l'algoritmo con il primo nodo, con un peso pari a 0
