@@ -5,6 +5,7 @@ from PIL import Image
 
 class Maze:
     def __init__(self, filepath):
+        
         """
         Costruttore della classe Maze
         Parameters
@@ -16,6 +17,7 @@ class Maze:
         -------
         None.
         """
+        
         # Inizializziamo i tre attributi della classe
         # maze conterrà la matrice che rappresenta il labirinto
         self.maze = []
@@ -30,11 +32,21 @@ class Maze:
         self.load_maze(filepath)
 
     def load_maze(self, filepath):
-        '''
+        
+        """
         Questa funzione ha il compito di richiamare la funzione corretta per la
         conversione in matrice facendo un check sull'estensione del file.
+        
+        Parameters
+        ----------
+        filepath : str
+            Path del file di input
 
-        '''
+        Returns
+        -------
+        None.
+        """
+        
         # Scomposizione del filepath in nome ed estensione
         _, file_ext = os.path.splitext(os.path.basename(filepath))
         # Se è un file immagine richiama il metodo image_to_maze
@@ -54,6 +66,7 @@ class Maze:
             raise ValueError("Formato file non supportato")
 
     def image_to_maze(self):
+        
         """
         Questa funzione trasforma l'immagine in ingresso in una matrice
         costituita da:
@@ -66,6 +79,7 @@ class Maze:
             - un numero da 2 a 16 se il colore RGB è una tonalità di grigio, rappresentando in questo
               modo il peso di una casella
         """
+        
         # Converte l'immagine in una matrice di pixel
         pixels = self.image.load()
         # Scansiona i pixel dell'immagine per creare la matrice del labirinto
@@ -92,6 +106,7 @@ class Maze:
             self.maze.append(maze_row)
 
     def json_to_maze(self, data):
+        
         """
         Questa funzione trasforma il Json in ingresso in una matrice
         costituita da:
@@ -113,6 +128,7 @@ class Maze:
         Returns
         -------
         """
+        
         for i in range(data["altezza"]):
             maze_row = []
             for j in range(data["larghezza"]):
@@ -150,7 +166,8 @@ class Maze:
         self.maze_to_image()
 
     def maze_to_image(self):
-        '''
+        
+        """
         Questo metodo, partendo dalla matrice rappresentante il labirinto
         generata da json_to_maze, genera un'immagine Tiff ad essa associata.
 
@@ -158,7 +175,8 @@ class Maze:
         -------
         image: TiffImageFile
             È l'immagine Tiff del labirinto descritto da Maze
-        '''
+        """
+        
         # Crea un'immagine vuota con le dimensioni della matrice del labirinto
         self.image = Image.new("RGB", (len(self.maze[0]), len(self.maze)))
         pixels = self.image.load()
@@ -180,6 +198,7 @@ class Maze:
             pixels[j, i] = (0, 255, 0)
 
     def get_adjacent_positions(self,pos):
+        
         """
         Questa funzione verifica quali tra le 4 posizioni adiacenti alla posizione corrente
         siano uno spazio percorribile e non un muro.
@@ -193,6 +212,7 @@ class Maze:
         valid_positions : list
             Restituisce tutte le caselle in cui è possibile spostarsi.
         """
+        
         x, y = pos
         adjacent_positions = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
         valid_positions = []
