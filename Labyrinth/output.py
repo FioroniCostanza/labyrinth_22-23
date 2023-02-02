@@ -1,7 +1,7 @@
 import copy
 import json
 import os
-
+import imageio
 
 def output_generation(filepath, paths, peso, maze):
     
@@ -58,9 +58,12 @@ def output_generation(filepath, paths, peso, maze):
 def draw_path(filename, file_ext, maze, path, index):
     
     """
-    Questa funzione colora sull'immagine del labirinto di partenza i percorsi possibili,
-    colorandoli in maniera differente per ogni punto di partenza e salvandoli in immagini
+    Questa funzione colora sull' immagine del labirinto di partenza i percorsi possibili, colorandoli
+    in maniera differente per ogni punto di partenza e salvandoli in immagini
     diverse per ogni percorso.
+    
+    Inoltre, genera, per ogni percorso, una Gif che mostra frame per frame il percorrimento 
+    dell'intero percorso.
 
     Parameters
     ----------
@@ -84,14 +87,27 @@ def draw_path(filename, file_ext, maze, path, index):
     None.
     """
 
-    # Si crea una copia di image in modo da avere un'immagine da modificare e non un riferimento
-    new_image = copy.deepcopy(maze.image)
+    # Si creano due copie di image in modo da avere un'immagine su cui colorare il percorso completo
+    # e una su cui colorare frame per frame, si usa la libreria deepcopy poichè senza genereremmo solo 
+    # un riferimento a image non una nuova immagine
+    full_path_image = copy.deepcopy(maze.image)
+    frame = copy.deepcopy(maze.image)
+    # Inizializzo una lista frames in cui si salveranno mano a mano le immagini parziali
+    frames = []
     colors = [(0, 255, 255), (255, 0, 255), (0, 128, 0), (128, 0, 128), (255, 255, 0), (192, 192, 192)]
     # Apre l'immagine del labirinto e disegna il percorso
-    pixels = new_image.load()
+    pixels = full_path_image.load()
+    pixels_f = frame.load()
     for x, y in path[1:(len(path) - 1)]:
+        # Ad ogni iterazione è come se resettassimo l'immagine frame alla situazione di partenza
+        frame = copy.deepcopy(maze.image)
+        pixels_f = frame.load()
         pixels[y, x] = colors[index]  # Il colore del percorso in tal modo varia a seconda della posizione di partenza
-        
+        pixels_f[y, x] = colors[index] 
+        # All'aggiunta di ogni casella del percorso colorata salviamo quest'immagine parziale nella lista frames
+        frames.append(frame)
+
+        # Salva il labirinto risolto
     if file_ext != '.json':
         ext = file_ext
     else:
@@ -99,6 +115,5 @@ def draw_path(filename, file_ext, maze, path, index):
 
     if not os.path.exists('./Percorsi'):
         os.makedirs('./Percorsi')
-        
-    # Salva il labirinto risolto
-    new_image.save(f'./Percorsi/{filename}_path_{index + 1}{ext}', format='PNG')
+    full_path_image.save(f'./Percorsi/{filename}_path_{index + 1}{ext}', format='PNG')
+    imageio.mimsave(f'./Percorsi/paths_{index+1}.gif', frames, fps=15)
