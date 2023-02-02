@@ -18,14 +18,15 @@ class Maze:
         None.
         """
         
-        # Inizializziamo i tre attributi della classe
+        # Inizializziamo i quattro attributi della classe
+        
         # maze conterrà la matrice che rappresenta il labirinto
         self.maze = []
         # start è la lista di tutte le caselle di partenza
         self.start = []
         # end è la tupla rappresentante la casella di arrivo
         self.end = ()
-        # # image contiene invece l'immagine rappresentante il labirinto
+        # image contiene invece l'immagine rappresentante il labirinto
         self.image = None
 
         # Si richiama il metodo load_maze
@@ -87,7 +88,7 @@ class Maze:
             maze_row = []
             for j in range(self.image.width):
                 pixel = pixels[j, i]
-                # Si converte il pixel in un numero, -1 se è un muro, 0 altrimenti
+                # Si converte il pixel in un numero, 0 se è un muro, 1 altrimenti
                 if pixel == (255, 255, 255):
                     maze_row.append(1)
                 elif pixel == (0, 0, 0):  # Pixel nero
@@ -169,12 +170,9 @@ class Maze:
         
         """
         Questo metodo, partendo dalla matrice rappresentante il labirinto
-        generata da json_to_maze, genera un'immagine Tiff ad essa associata.
+        generata da json_to_maze, modifica l'attributo Image della classe Maze
+        salvando le informazioni sul labirinto sotto forma di immagine.
 
-        Returns
-        -------
-        image: TiffImageFile
-            È l'immagine Tiff del labirinto descritto da Maze
         """
         
         # Crea un'immagine vuota con le dimensioni della matrice del labirinto
