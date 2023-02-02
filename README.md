@@ -45,7 +45,7 @@ Una volta avviato il codice viene richiesto di inserire il percorso del file da 
 
 scelta l'immagine/il file JSON basta inserire il percorso associato al file: (Sia assoluto che relativo)
 ```console  
-/Users/utente/Desktop/labyrinth_22-23/indata/30-20_marked.jpeg
+/Users/utente/Desktop/labyrinth_22-23/Labyrinth/indata/30-20_marked.jpeg
 ```
 In questo caso abbiamo scelto l'immagine 30-20_marked.jpeg.
 
