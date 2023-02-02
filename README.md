@@ -68,9 +68,45 @@ Ogni file in uscita in formato TIFF, JPEG e PNG è stato rinominato aggiungendo 
 
 ### Esempio
 Partendo dall'esempio precedente, l'immagine fornita ha due punti di partenza, quindi nella directory 'Percorsi' saranno presenti due immagini JPEG e un file JSON, come segue:
+
 - 30-20_marked_path_1.jpeg
+
+![image](https://user-images.githubusercontent.com/117634064/216378095-1507d4ca-2e57-41a6-b8a6-779f30d53d04.png)
+
 - 30-20_marked_path_2.jpeg
+
+![image](https://user-images.githubusercontent.com/117634064/216377597-c840159f-fb86-4578-b27a-20ac3f419caf.png)
+
 - 30-20_marked_path_info.json
+```  
+[
+    {
+        "start": [
+            0,
+            29
+        ],
+        "end": [
+            21,
+            31
+        ],
+        "length": 64,
+        "weight": 63
+    },
+    {
+        "start": [
+            19,
+            60
+        ],
+        "end": [
+            21,
+            31
+        ],
+        "length": 228,
+        "weight": 227
+    }
+]
+```
+
 
 ## Il Dockerfile
 Un Dockerfile è l'elemento costitutivo dell'ecosistema Docker, che descrive tutti i passaggi per creare un'immagine Docker. Il flusso di informazioni segue il modello: Dockerfile > immagine Docker > container Docker.
