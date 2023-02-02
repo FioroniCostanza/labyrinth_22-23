@@ -4,10 +4,12 @@ import os
 
 
 def output_generation(filepath, paths, peso, maze):
+    
     """
     Questa funzione genera gli output da dare in uscita in seguito all'elaborazione.
     Restituisce un file json con informazioni su ogni percorso e delle immagini
     del labirinto di partenza con il percorso colorato.
+    
     Parameters
     ----------
 
@@ -22,8 +24,10 @@ def output_generation(filepath, paths, peso, maze):
 
     maze : Class
         Contiene i metodi e gli attributi della classe Maze
+        
     Returns
     -------
+    
     None.
     """
     
@@ -52,6 +56,7 @@ def output_generation(filepath, paths, peso, maze):
 
 
 def draw_path(filename, file_ext, maze, path, index):
+    
     """
     Questa funzione colora sull' immagine del labirinto di partenza i percorsi possibili, colorandoli
     in maniera differente per ogni punto di partenza e salvandoli in immagini
@@ -73,6 +78,7 @@ def draw_path(filename, file_ext, maze, path, index):
 
     index : int
         Un intero che identifica la casella di partenza a cui fa riferimento il percorso.
+        
     Returns
     -------
     None.
