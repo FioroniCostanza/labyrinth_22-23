@@ -1,7 +1,7 @@
 __pycache__
 .DS_Store
 .idea
-indata/labirinto2_def.tiff
-indata/labirinto3_def.tiff
-Percorsi
+Labyrinth/indata/labirinto2_def.tiff
+Labyrinth/indata/labirinto3_def.tiff
+Labyrinth/Percorsi
 requirements.txt
