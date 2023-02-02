@@ -12,9 +12,9 @@ Il progetto è stato realizzato per accettare i seguenti formati:
 - PNG
 - JSON
 
-Per quanto riguarda i formati TIFF, JPEG e PNG il codice elabora l'immagine inserita e la converte in una matrice di adiacenza, utilizzando il colore RGB dei pixels (i colori bianco e grigio sono percorribili, mentre il nero no).
+Per quanto riguarda i formati TIFF, JPEG e PNG il codice elabora l'immagine inserita e la converte in una matrice che rappresenti il labirinto, utilizzando il colore RGB dei pixels (i colori bianco e grigio sono percorribili, mentre il nero no).
 
-Nel caso di un file in formato JSON viene creata una matrice di adiacenza partendo dalle informazioni all'interno del file, che contengono le seguenti caratteristiche del labirinto:
+Nel caso di un file in formato JSON viene creata la matrice partendo dalle informazioni all'interno del file, che contengono le seguenti caratteristiche del labirinto:
 
 - "larghezza": un numero che indica il numero di posizioni 
     lungo la dimensione orizzontale;
@@ -43,7 +43,7 @@ Una volta avviato il codice viene richiesto di inserire il percorso del file da 
 
     Inserisci il percorso del file (.json/.tiff/.png/.jpeg): 
 
-scelta l'immagine/il file JSON basta inserire il percorso assoluto associato al file:
+scelta l'immagine/il file JSON basta inserire il percorso associato al file: (Sia assoluto che relativo)
 ```console  
 /Users/utente/Desktop/labyrinth_22-23/indata/30-20_marked.jpeg
 ```
