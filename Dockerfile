@@ -5,13 +5,14 @@ FROM python:3.7.5-slim
 WORKDIR /usr/src/app
 
 # copy all the files to the image excluding those listed in .dockerignore
-COPY ./ Labyrinth./
+COPY ./Labyrinth ./
 
 # create a virtual environment
 RUN python -m venv ./env
 # activate the virtual environment
 ENV VIRTUAL_ENV /env
 ENV PATH /usr/src/app/env/bin:$PATH
+
 # update pip if needed
 RUN pip install --upgrade pip
 
