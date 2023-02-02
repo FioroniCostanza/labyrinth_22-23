@@ -58,8 +58,8 @@ def output_generation(filepath, paths, peso, maze):
 def draw_path(filename, file_ext, maze, path, index):
     
     """
-    Questa funzione colora sull' immagine del labirinto di partenza i percorsi possibili, colorandoli
-    in maniera differente per ogni punto di partenza e salvandoli in immagini
+    Questa funzione colora sull'immagine del labirinto di partenza i percorsi possibili,
+    colorandoli in maniera differente per ogni punto di partenza e salvandoli in immagini
     diverse per ogni percorso.
 
     Parameters
