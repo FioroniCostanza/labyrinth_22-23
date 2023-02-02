@@ -4,7 +4,7 @@ FROM python:3.7.5-slim
 # set a directory for the app
 WORKDIR /usr/src/app
 
-# copy all the files in Labyrinth directory
+# copy all the files in Labyrinth directory excluding those listed in .dockerignore
 COPY ./Labyrinth ./
 
 # create a virtual environment
