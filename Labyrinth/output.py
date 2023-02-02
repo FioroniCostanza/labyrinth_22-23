@@ -99,13 +99,10 @@ def draw_path(filename, file_ext, maze, path, index):
     pixels = full_path_image.load()
     pixels_f = frame.load()
     for x, y in path[1:(len(path) - 1)]:
-        # Ad ogni iterazione è come se resettassimo l'immagine frame alla situazione di partenza
-        frame = copy.deepcopy(maze.image)
-        pixels_f = frame.load()
         pixels[y, x] = colors[index]  # Il colore del percorso in tal modo varia a seconda della posizione di partenza
         pixels_f[y, x] = colors[index] 
         # All'aggiunta di ogni casella del percorso colorata salviamo quest'immagine parziale nella lista frames
-        frames.append(frame)
+        frames.append(copy.deepcopy(frame))
 
         # Salva il labirinto risolto
     if file_ext != '.json':
