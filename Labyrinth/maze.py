@@ -87,7 +87,7 @@ class Maze:
                 elif pixel[0] == pixel[1] == pixel[2]:
                     # in tal caso utilizziamo il valore del pixel come peso
                     # infatti i pixel grigi sono sempre nella forma (x,x,x)
-                    # sommando uno cosi nel caso del pixel (16,16,16) si ottiene un peso pari a 2
+                    # sommando uno così nel caso del pixel (16,16,16) si ottiene un peso pari a 2
                     maze_row.append((pixel[0] // 16) + 1)
             self.maze.append(maze_row)
 
