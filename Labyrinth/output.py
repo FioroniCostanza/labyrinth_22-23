@@ -113,4 +113,4 @@ def draw_path(filename, file_ext, maze, path, index):
     if not os.path.exists('./Percorsi'):
         os.makedirs('./Percorsi')
     full_path_image.save(f'./Percorsi/{filename}_path_{index + 1}{ext}', format='PNG')
-    imageio.mimsave(f'./Percorsi/paths_{index+1}.gif', frames, fps=15)
+    imageio.mimsave(f'./Percorsi/{filename}_path_{index+1}.gif', frames, fps=15)
