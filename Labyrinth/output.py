@@ -21,7 +21,7 @@ def output_generation(filepath, paths, peso, maze):
         Contiene il peso di ogni percorso
 
     maze : Class
-        Contiene i contenuti della classe Maze
+        Contiene i metodi e gli attributi della classe Maze
     Returns
     -------
     None.
@@ -66,7 +66,7 @@ def draw_path(filename, file_ext, maze, path, index):
         Stringa contenente l'estensione del file di input
 
     maze : Class
-        Contiene i contenuti della classe Maze
+        Contiene i metodi e gli attributi della classe Maze
 
     paths : list
         Lista di tutte i percorsi che partono da una stessa casella di partenza.
@@ -85,7 +85,7 @@ def draw_path(filename, file_ext, maze, path, index):
     pixels = new_image.load()
     for x, y in path[1:(len(path) - 1)]:
         pixels[y, x] = colors[index]  # Il colore del percorso in tal modo varia a seconda della posizione di partenza
-        # Salva il labirinto risolto
+        
     if file_ext != '.json':
         ext = file_ext
     else:
@@ -93,4 +93,6 @@ def draw_path(filename, file_ext, maze, path, index):
 
     if not os.path.exists('./Percorsi'):
         os.makedirs('./Percorsi')
+        
+    # Salva il labirinto risolto
     new_image.save(f'./Percorsi/{filename}_path_{index + 1}{ext}', format='PNG')
