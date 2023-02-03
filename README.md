@@ -146,7 +146,7 @@ Utilizzando un container Docker, bisogna però inserire il path del file virtual
 /usr/src/app/indata/30-20_marked.jpeg
 ```
 
-Per continuare ad esegeuire all'interno dello stesso container si può utilizzare:
+Per continuare ad eseguire all'interno dello stesso container si può utilizzare:
 ``` 
 docker container start -ai labirinto
 ```
