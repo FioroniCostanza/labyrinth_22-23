@@ -114,7 +114,7 @@ Un Dockerfile è l'elemento costitutivo dell'ecosistema Docker, che descrive tut
 Nel nostro caso il Dockerfile contiene tutte le informazioni per crearsi un'immagine Docker, sviluppando un'ambiente virtuale python, installando i pacchetti necessari specificati in 'requirements.txt' e copiandosi tutti i file appartenenti al progetto. 
 
 ### Come si crea un'immagine Docker?
-Una volta verificata la posizione del Dockerfile e del file 'requirements.txt', situati prima della cartella contenente il codice per l'elaborarazione di un percorso, si puo' utilizzare questo comando:
+Una volta verificata la posizione del Dockerfile e del file 'requirements.txt', situati prima della cartella contenente il codice per l'elaborazione di un percorso, si puo' utilizzare questo comando:
 ```  
 docker build . -t utente/mymaze:1
 ```
