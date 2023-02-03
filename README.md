@@ -71,11 +71,11 @@ Partendo dall'esempio precedente, l'immagine fornita ha due punti di partenza, q
 
 - 30-20_marked_path_1.jpeg
 
-![image](https://user-images.githubusercontent.com/117634064/216378095-1507d4ca-2e57-41a6-b8a6-779f30d53d04.png)
+![image](https://user-images.githubusercontent.com/117634064/216614038-c8b6f36e-9bb8-4bff-8ef5-088352178987.png)
 
 - 30-20_marked_path_2.jpeg
 
-![image](https://user-images.githubusercontent.com/117634064/216377597-c840159f-fb86-4578-b27a-20ac3f419caf.png)
+![image](https://user-images.githubusercontent.com/117634064/216614592-eae6731e-b8dd-425a-8e6b-12416ed5fa31.png)
 
 - 30-20_marked_path_1.gif
 
