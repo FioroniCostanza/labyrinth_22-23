@@ -66,7 +66,7 @@ Se non si ha nemmeno un percorso possibile partendo dalla posizione di partenza 
 Tutti i risutati possono essere visionati nella directory 'Percorsi'. 
 Ogni file in uscita in formato TIFF, JPEG e PNG è stato rinominato aggiungendo al nome iniziale '_path_' + 'n° riferito alla casella di partenza', mentre per quanto riguarda il file JSON viene rinominato semplicemente aggiungendo 'path_info'.
 
-### Esempio di utilizzo:
+### Esempio di output:
 Partendo dall'esempio precedente, l'immagine fornita ha due punti di partenza, quindi nella directory 'Percorsi' saranno presenti due immagini JPEG e un file JSON, come segue:
 
 - 30-20_marked_path_1.jpeg
