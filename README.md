@@ -53,7 +53,7 @@ In questo caso abbiamo scelto l'immagine 30-20_marked.jpeg.
 Dopo aver inserito un'immagine (TIFF, JPEG, PNG) rappresentante un labirinto da analizzare o un file JSON contenente le caratteristiche di tale labirinto, viene fornito il percorso più berve e di costo minore tramite:
 
 - un'immagine (la stessa immagine data in input) con lo stesso formato d'ingresso (TIFF, JPEG, PNG) per ciascun punto di partenza, dove per ogni partenza viene sovrascritto il percorso trovato in colori differenti;
-- una Gif per ciascun punto di partenza, dove viene mostrato frame per frame l'intero percorso;
+- una file GIF per ciascun punto di partenza, dove viene mostrato frame per frame l'intero percorso;
 - un file JSON che contiene un dizionario con le seguenti chiavi:
  
   - "start": coordinate del punto di partenza
@@ -106,7 +106,6 @@ Partendo dall'esempio precedente, l'immagine fornita ha due punti di partenza, q
     }
 ]
 ```
-
 
 ## Il Dockerfile
 Un Dockerfile è l'elemento costitutivo dell'ecosistema Docker, che descrive tutti i passaggi per creare un'immagine Docker. Il flusso di informazioni segue il modello: Dockerfile > immagine Docker > container Docker.
