@@ -67,7 +67,7 @@ Tutti i risutati possono essere visionati nella directory 'Percorsi'.
 Ogni file in uscita in formato TIFF, JPEG e PNG è stato rinominato aggiungendo al nome iniziale '_path_' + 'n° riferito alla casella di partenza', mentre per quanto riguarda il file JSON viene rinominato semplicemente aggiungendo 'path_info'.
 
 ### Esempio di output:
-Partendo dall'esempio precedente, l'immagine fornita ha due punti di partenza, quindi nella directory 'Percorsi' saranno presenti due immagini JPEG e un file JSON, come segue:
+Partendo dall'esempio precedente, l'immagine fornita ha due punti di partenza, quindi nella directory 'Percorsi' saranno presenti due immagini JPEG, due GIF e un file JSON, come segue:
 
 - 30-20_marked_path_1.jpeg
 
@@ -76,6 +76,14 @@ Partendo dall'esempio precedente, l'immagine fornita ha due punti di partenza, q
 - 30-20_marked_path_2.jpeg
 
 ![image](https://user-images.githubusercontent.com/117634064/216377597-c840159f-fb86-4578-b27a-20ac3f419caf.png)
+
+- 30-20_marked_path_1.gif
+
+![30-20_marked_path_1](https://user-images.githubusercontent.com/117634064/216612738-965420c4-c68f-4b8e-9944-62438959eec9.gif)
+
+- 30-20_marked_path_2.gif
+
+![30-20_marked_path_2](https://user-images.githubusercontent.com/117634064/216613370-2c7e426c-2e41-4fc4-829b-79ac192db17d.gif)
 
 - 30-20_marked_path_info.json
 ```  
