@@ -121,7 +121,7 @@ docker build . -t utente/mymaze:1
 Il tag **utente/mymaze:1** è un nome generico assegnato all'immagine appena creata, dove **utente** rappresenta colui che ha realizzato l'immagine, **mymaze** è il nome vero e proprio dell'immagine e **1** è la versione.
 
 ### Come si esegue un container Docker?
-All'interno del Dockerfile è stato specificto, che all'avvio del container deve essere eseguito lo script 'main.py' tramite il comando che segue:
+All'interno del Dockerfile è stato specificato che all'avvio del container deve essere eseguito lo script 'main.py' tramite il comando che segue:
 ```  
 CMD ["python", "./main.py"]
 ```
