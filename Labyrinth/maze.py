@@ -83,6 +83,8 @@ class Maze:
         
         # Converte l'immagine in una matrice di pixel
         pixels = self.image.load()
+        verde=0
+        rosso=0
         # Scansiona i pixel dell'immagine per creare la matrice del labirinto
         for i in range(self.image.height):
             maze_row = []
