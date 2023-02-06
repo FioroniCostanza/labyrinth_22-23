@@ -18,8 +18,8 @@ class Maze:
         None.
         """
         
-        # Inizializziamo i quattro attributi della classe
-        
+        # Inizializziamo i quattro attributi della classe:
+
         # maze conterrà la matrice che rappresenta il labirinto
         self.maze = []
         # start è la lista di tutte le caselle di partenza
@@ -105,6 +105,10 @@ class Maze:
                     # si somma 1 così nel caso del pixel (16,16,16) si ottiene un peso pari a 2
                     # poichè il peso 1 è attribuito alle caselle bianche
                     maze_row.append((pixel[0] // 16) + 1)
+                # Se vi è un pixel diverso da tutti i casi precedenti allora si produce un'errore, poichè
+                # il labirinto non è rappresentato correttamente.
+                else:
+                    raise ValueError("L'immagine fornita non rappresenta correttamente il labirinto.")
             self.maze.append(maze_row)
 
     def json_to_maze(self, data):
