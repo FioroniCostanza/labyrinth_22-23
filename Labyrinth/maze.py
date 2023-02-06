@@ -115,8 +115,8 @@ class Maze:
         if len(self.start) < 1:
             raise ValueError("L'immagine fornita non presenta alcun punto di partenza.")
 
-        # Verifica della presenza di almeno un punto di arrivo
-        if len(self.end) < 1:
+        # Verifica della presenza di un unico punto di arrivo
+        if len(self.end) = 1:
             raise ValueError("L'immagine fornita non presenta alcun punto di fine.")
 
             
