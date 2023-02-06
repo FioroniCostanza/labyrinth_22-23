@@ -103,10 +103,10 @@ class Maze:
                     # in tal caso utilizziamo il valore del pixel come peso
                     # infatti i pixel grigi sono sempre nella forma (x,x,x)
                     # si somma 1 così nel caso del pixel (16,16,16) si ottiene un peso pari a 2
-                    # poichè il peso 1 è attribuito alle caselle bianche
+                    # poiché il peso 1 è attribuito alle caselle bianche
                     maze_row.append((pixel[0] // 16) + 1)
-                # Se vi è un pixel diverso da tutti i casi precedenti allora si produce un'errore, poichè
-                # il labirinto non è rappresentato correttamente.
+                # Se vi è un pixel diverso da tutti i casi precedenti allora si produce un errore,
+                # poiché il labirinto non è rappresentato correttamente.
                 else:
                     raise ValueError("L'immagine fornita non rappresenta correttamente il labirinto.")
             self.maze.append(maze_row)
@@ -135,6 +135,10 @@ class Maze:
         -------
         """
         
+        # Verifica che la struttura del file JSON sia effettivamente quella supportata dal programma
+        if list(data.keys()) != ["larghezza", "altezza", "pareti", "iniziali", "finale", "costi"]:
+            raise ValueError("Struttura file JSON non supportata")
+        
         for i in range(data["altezza"]):
             maze_row = []
             for j in range(data["larghezza"]):
@@ -143,6 +147,10 @@ class Maze:
 
         # Popola la matrice con le pareti
         for wall in data["pareti"]:
+            # Verifica che la struttura del file JSON sia effettivamente quella supportata dal programma
+            if list(wall.keys()) != ["orientamento", "posizione", "lunghezza"]:
+                raise ValueError("Struttura file JSON non supportata")
+                
             if wall["orientamento"] == "H":
                 for i in range(wall["lunghezza"]):
                     self.maze[wall["posizione"][0]][wall["posizione"][1] + i] = 0
