@@ -110,7 +110,16 @@ class Maze:
                 else:
                     raise ValueError("L'immagine fornita non rappresenta correttamente il labirinto.")
             self.maze.append(maze_row)
+            
+        # Verifica della presenza di almeno un punto di partenza
+        if verde < 1:
+            raise ValueError("L'immagine fornita non presenta alcun punto di partenza.")
 
+        # Verifica della presenza di almeno un punto di arrivo
+        if rosso < 1:
+            raise ValueError("L'immagine fornita non presenta alcun punto di fine.")
+
+            
     def json_to_maze(self, data):
         
         """
