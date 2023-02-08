@@ -208,7 +208,7 @@ class Maze:
                 elif self.maze[i][j] == 1:
                     pixels[j, i] = (255, 255, 255)  # Cammino = bianco
                 else:
-                    pixels[j, i] = ((self.maze[i][j] - 1) * 16, (self.maze[i][j] - 1) * 16, (self.maze[i][j] - 1) * 16)  # Altri valori = grigio scuro
+                    pixels[j, i] = ((self.maze[i][j] - 1) * 16, (self.maze[i][j] - 1) * 16, (self.maze[i][j] - 1) * 16)  # Cammino pesato = grigio scuro
         i = self.end[0]
         j = self.end[1]
         pixels[j, i] = (255, 0, 0)
