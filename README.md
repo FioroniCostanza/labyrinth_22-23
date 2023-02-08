@@ -125,7 +125,7 @@ Una volta verificata la posizione del Dockerfile e del file 'requirements.txt', 
 ```  
 docker build . -t utente/mymaze:1
 ```
-Il tag **utente/mymaze:1** è un nome generico assegnato all'immagine appena creata, dove **utente** rappresenta colui che ha realizzato l'immagine, **mymaze** è il nome vero e proprio dell'immagine e **1** è la versione.
+Il tag `utente/mymaze:1` è un nome generico assegnato all'immagine appena creata, dove `utente` rappresenta colui che ha realizzato l'immagine, `mymaze` è il nome vero e proprio dell'immagine e `1` è la versione.
 
 ### Come si esegue un container Docker?
 All'interno del Dockerfile è stato specificato che all'avvio del container deve essere eseguito lo script 'main.py' tramite il comando che segue:
@@ -138,10 +138,10 @@ Il comando utilizzato è il seguente:
 ```  
 docker container run -a stdin -a stdout -it -v $(pwd)/labyrinth/indata:/usr/src/app/indata -v $(pwd)/labyrinth/Percorsi:/usr/src/app/Percorsi --name labirinto utente/mymaze:1
 ```
-- **$(pwd)/labyrinth/indata** e **$(pwd)/labyrinth/Percorsi** rappresentano i path di riferitimento alle cartelle 'indata' e 'Percorsi' del computer in cui è collegato il container Docker;
-- **/usr/src/app/indata** e **/usr/src/app/Percorsi** rappresentano il path delle cartelle virtuali 'indata' e 'Percorsi' presenti nel container;
-- **utente/mymaze:1** è l'immagine creata precedentemente;
-- **labirinto** è il nome assegnato al container appena eseguito.
+- `$(pwd)/labyrinth/indata` e `$(pwd)/labyrinth/Percorsi` rappresentano i path di riferitimento alle cartelle 'indata' e 'Percorsi' del computer in cui è collegato il container Docker;
+- `/usr/src/app/indata` e `/usr/src/app/Percorsi` rappresentano il path delle cartelle virtuali 'indata' e 'Percorsi' presenti nel container;
+- `utente/mymaze:1` è l'immagine creata precedentemente;
+- `labirinto` è il nome assegnato al container appena eseguito.
 
 Questo comando restituisce come in precedenza il commento:
 ```console  
