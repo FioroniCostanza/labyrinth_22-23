@@ -51,7 +51,7 @@ class Maze:
         # Scomposizione del filepath in nome ed estensione
         _, file_ext = os.path.splitext(os.path.basename(filepath))
         # Se è un file immagine richiama il metodo image_to_maze
-        if file_ext in [".tiff", ".jpg", ".jpeg", ".png"]:
+        if file_ext in [".tiff", ".jpeg", ".png"]:
             # Apre l'immagine del labirinto
             self.image = Image.open(filepath)
             self.image_to_maze()
@@ -116,8 +116,8 @@ class Maze:
             raise ValueError("L'immagine fornita non presenta alcun punto di partenza.")
 
         # Verifica della presenza di un unico punto di arrivo
-        if len(self.end) == 1:
-            raise ValueError("L'immagine fornita non presenta alcun punto di fine.")
+        if len(self.end) != 1:
+            raise ValueError("L'immagine fornita non presenta un unico punto di fine.")
 
             
     def json_to_maze(self, data):
