@@ -145,7 +145,7 @@ class Maze:
         """
         
         # Verifica che la struttura del file JSON sia effettivamente quella supportata dal programma
-        if list(data.keys()) != ["larghezza", "altezza", "pareti", "iniziali", "finale", "costi"]:
+        if set(list(data.keys())) != {"larghezza", "altezza", "pareti", "iniziali", "finale", "costi"}:
             raise ValueError("Struttura file JSON non supportata")
         
         for i in range(data["altezza"]):
@@ -157,7 +157,7 @@ class Maze:
         # Popola la matrice con le pareti
         for wall in data["pareti"]:
             # Verifica che la struttura del file JSON sia effettivamente quella supportata dal programma
-            if list(wall.keys()) != ["orientamento", "posizione", "lunghezza"]:
+            if set(list(wall.keys())) != {"orientamento", "posizione", "lunghezza"}:
                 raise ValueError("Struttura file JSON non supportata")
                 
             if wall["orientamento"] == "H":
