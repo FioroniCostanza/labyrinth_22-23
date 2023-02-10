@@ -28,12 +28,12 @@ def maze_to_image(maze,start,end):
     # Imposta i pixel dell'immagine in base alla matrice del labirinto
     for i in range(len(maze)):
         for j in range(len(maze[0])):
-            if maze[i][j] == -1:
+            if maze[i][j] == 0:
                 pixels[j, i] = (0, 0, 0) # Muro = nero
-            elif maze[i][j] == 0:
+            elif maze[i][j] == 1:
                 pixels[j, i] = (255, 255, 255) # Cammino = bianco
             else:
-                pixels[j, i] = (maze[i][j]*16, maze[i][j]*16, maze[i][j]*16) # Altri valori = grigio
+                pixels[j, i] = ((maze[i][j]-1)*16, (maze[i][j]-1)*16, (maze[i][j]-1)*16) # Altri valori = grigio
     i = end[0]
     j = end[1]
     pixels[j,i] = (255, 0, 0)
@@ -48,12 +48,12 @@ def json_to_maze(data):
     Questa funzione trasforma il Json in ingresso in una matrice
     costituita da:
 
-        - 0 se la casella è percorribile.
+        - 1 se la casella è percorribile.
 
-        - -1 se la casella non è percorribile, quindi rappresenta il muro del
+        - 0 se la casella non è percorribile, quindi rappresenta il muro del
           labirinto
 
-        - un numero da 1 a 15 se la casella è una tonalità di grigio, rappresentando in questo
+        - un numero da 2 a 16 se la casella è una tonalità di grigio, rappresentando in questo
           modo il peso di una casella
 
     Parameters
@@ -81,17 +81,17 @@ def json_to_maze(data):
     for i in range(data["altezza"]):
         maze_row = []
         for j in range(data["larghezza"]):
-            maze_row.append(0)
+            maze_row.append(1)
         maze.append(maze_row)
 
     # Popola la matrice con le pareti
     for wall in data["pareti"]:
         if wall["orientamento"] == "H":
             for i in range(wall["lunghezza"]):
-                maze[wall["posizione"][0]][wall["posizione"][1] + i] = -1
+                maze[wall["posizione"][0]][wall["posizione"][1] + i] = 0
         elif wall["orientamento"] == "V":
             for i in range(wall["lunghezza"]):
-                maze[wall["posizione"][0] + i][wall["posizione"][1]] = -1
+                maze[wall["posizione"][0] + i][wall["posizione"][1]] = 0
 
     # Popola con le posizioni iniziali
     for iniziale in data["iniziali"]:
@@ -108,15 +108,15 @@ def json_to_maze(data):
     for costo in data["costi"]:
         i = costo[0]
         j = costo[1]
-        peso = costo[2]
-        maze[i][j] = peso
+        peso = costo[2] + 1
+        maze[i][j] = peso + 1
 
     # Si richiama la funzione maze_to_image in modo da avere l'immagine del labirinto appena generato
     image = maze_to_image(maze, start, end)
     return maze, start, end, image
 
-filepath = input("Inserisci il percorso del file (.json/.tiff): ")
-image_name, ext = os.path.splitext(filepath)
+filepath = input("Inserisci il percorso del file (.json/.tiff): ").strip()
+image_name, ext = os.path.splitext(os.path.basename(filepath))
 if ext==".json":
     with open(filepath) as json_file:
         data = json.load(json_file)
