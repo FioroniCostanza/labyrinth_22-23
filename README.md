@@ -61,7 +61,7 @@ Dopo aver inserito un'immagine (TIFF, JPEG, PNG) rappresentante un labirinto da 
   - "lenght": lunghezza totale del percorso più breve
   - "weight": peso 
 
-Se non si ha nemmeno un percorso possibile partendo dalla posizione di partenza indicata, nel file JSON verrà resituito il seguente messaggio "Nessun percorso possibile dalla posizione di partenza selezionata".
+Se non si ha nemmeno un percorso possibile partendo dalla posizione di partenza indicata, nel file JSON verrà restituito il seguente messaggio "Nessun percorso possibile dalla posizione di partenza selezionata".
 
 Tutti i risutati possono essere visionati nella directory 'Percorsi'. 
 Ogni file in uscita in formato TIFF, JPEG e PNG è stato rinominato aggiungendo al nome iniziale '_path_' + 'n° riferito alla casella di partenza', mentre per quanto riguarda il file JSON viene rinominato semplicemente aggiungendo 'path_info'.
