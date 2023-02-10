@@ -22,8 +22,8 @@ def output_generation(filepath, paths, peso, maze):
     peso : list
         Contiene il peso di ogni percorso
 
-    maze : Class
-        Contiene i metodi e gli attributi della classe Maze
+    maze : Maze
+        Contiene il labirinto risolto
         
     Returns
     -------
@@ -72,8 +72,8 @@ def draw_path(filename, file_ext, maze, path, index):
     file_ext : str
         Stringa contenente l'estensione del file di input
 
-    maze : Class
-        Contiene i metodi e gli attributi della classe Maze
+    maze : Maze
+        Contiene il labirinto da disegnare
 
     path : list
         Percorso che parte da una specifica casella di partenza.
