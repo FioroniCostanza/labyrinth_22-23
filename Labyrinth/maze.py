@@ -83,6 +83,8 @@ class Maze:
         
         # Converte l'immagine in una matrice di pixel
         pixels = self.image.load()
+        # Inizializzo il numero di caselle rosse trovate nel labirinto
+        red_cell = 0
         # Scansiona i pixel dell'immagine per creare la matrice del labirinto
         for i in range(self.image.height):
             maze_row = []
@@ -97,6 +99,7 @@ class Maze:
                     maze_row.append(1)
                     self.start.append((i, j))
                 elif pixel == (255, 0, 0):  # Pixel rosso
+                    red_cell += 1
                     maze_row.append(1)
                     self.end = (i, j)
                 elif pixel[0] == pixel[1] == pixel[2]:
@@ -116,7 +119,9 @@ class Maze:
             raise ValueError("L'immagine fornita non presenta alcun punto di partenza.")
 
         # Verifica della presenza di un unico punto di arrivo
-        if len(self.end) != 1:
+        if red_cell == 0:
+            raise ValueError("L'immagine fornita non presenta alcun punto di fine.")
+        elif red_cell > 1:
             raise ValueError("L'immagine fornita non presenta un unico punto di fine.")
 
             
