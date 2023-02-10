@@ -109,7 +109,7 @@ def json_to_maze(data):
         i = costo[0]
         j = costo[1]
         peso = costo[2] + 1
-        maze[i][j] = peso + 1
+        maze[i][j] = peso
 
     # Si richiama la funzione maze_to_image in modo da avere l'immagine del labirinto appena generato
     image = maze_to_image(maze, start, end)
