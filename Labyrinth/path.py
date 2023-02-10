@@ -44,8 +44,11 @@ class Path:
 
         Returns
         -------
-        paths : list
-           Restituisce il percorso a peso minimo trovati tra partenza e arrivo.
+        path : list
+           Restituisce il percorso a peso minimo trovato tra la partenza in ingresso e l'arrivo.
+           
+        weight_tot : int
+            Restituisce il peso totale del percorso trovato
         """
         
         # Creiamo una coda vuota per tener traccia dei percorsi
