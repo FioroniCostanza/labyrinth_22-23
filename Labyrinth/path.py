@@ -8,8 +8,8 @@ class Path:
         Costruttore della classe Path
         Parameters
         ----------
-        maze : Class
-            Contiene i metodi e gli attributi della classe Maze
+        maze : Maze
+            Contiene il labirinto da risolvere
 
         Returns
         -------
@@ -39,8 +39,8 @@ class Path:
         start: tuple
             Contiene la posizione di partenza
 
-        maze : Class
-            Contiene i metodi e gli attributi della classe Maze
+        maze : Maze
+            Contiene il labirinto da risolvere
 
         Returns
         -------
