@@ -183,7 +183,7 @@ class Maze:
             i = costo[0]
             j = costo[1]
             peso = costo[2] + 1
-            self.maze[i][j] = peso + 1
+            self.maze[i][j] = peso
 
         # Si richiama la funzione maze_to_image in modo da avere l'immagine del labirinto appena generato
         self.maze_to_image()
