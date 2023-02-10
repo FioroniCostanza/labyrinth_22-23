@@ -110,7 +110,7 @@ def draw_path(filename, file_ext, maze, path, index):
     else:
         ext = '.tiff'  # si imposta di default il formato ".tiff" per l'immagine generata nel caso in cui in ingresso si abbia un file json
 
-    if not os.path.exists('./Percorsi'):
-        os.makedirs('./Percorsi')
+    if not os.path.exists('Percorsi'):
+        os.makedirs('Percorsi')
     full_path_image.save(f'./Percorsi/{filename}_path_{index + 1}{ext}', format='PNG')
     imageio.mimsave(f'./Percorsi/{filename}_path_{index+1}.gif', frames, fps=15)
