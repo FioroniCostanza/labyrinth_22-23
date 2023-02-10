@@ -16,7 +16,7 @@ def output_generation(filepath, paths, peso, maze):
     filepath : str
         Path del file di input
 
-    paths : list of lists
+    paths : list
         Contiene tutti i percorsi trovati
 
     peso : list
@@ -58,12 +58,11 @@ def output_generation(filepath, paths, peso, maze):
 def draw_path(filename, file_ext, maze, path, index):
     
     """
-    Questa funzione colora sull' immagine del labirinto di partenza i percorsi possibili, colorandoli
+    Questa funzione colora sull'immagine del labirinto di partenza i percorsi possibili, colorandoli
     in maniera differente per ogni punto di partenza e salvandoli in immagini
     diverse per ogni percorso.
     
-    Inoltre, genera, per ogni percorso, una Gif che mostra frame per frame il percorrimento 
-    dell'intero percorso.
+    Inoltre, genera una Gif che mostra frame per frame l'evoluzione dell'intero percorso.
 
     Parameters
     ----------
@@ -76,8 +75,8 @@ def draw_path(filename, file_ext, maze, path, index):
     maze : Class
         Contiene i metodi e gli attributi della classe Maze
 
-    paths : list
-        Lista di tutte i percorsi che partono da una stessa casella di partenza.
+    path : list
+        Percorso che parte da una specifica casella di partenza.
 
     index : int
         Un intero che identifica la casella di partenza a cui fa riferimento il percorso.
@@ -88,8 +87,8 @@ def draw_path(filename, file_ext, maze, path, index):
     """
 
     # Si creano due copie di image in modo da avere un'immagine su cui colorare il percorso completo
-    # e una su cui colorare frame per frame, si usa la libreria deepcopy poichè senza genereremmo solo 
-    # un riferimento a image non una nuova immagine
+    # e una su cui colorare frame per frame.
+    # Si usa la libreria deepcopy poiché senza genereremmo solo un riferimento a image non una nuova immagine
     full_path_image = copy.deepcopy(maze.image)
     frame = copy.deepcopy(maze.image)
     # Inizializzo una lista frames in cui si salveranno mano a mano le immagini parziali
@@ -108,7 +107,7 @@ def draw_path(filename, file_ext, maze, path, index):
     if file_ext != '.json':
         ext = file_ext
     else:
-        ext = '.tiff'  # si imposta di default il formato ".tiff" per l'immagine generata nel caso in cui in ingresso si abbia un file json
+        ext = '.tiff'  # si imposta di default il formato ".tiff" nel caso si abbia un file json in ingresso
 
     if not os.path.exists('Percorsi'):
         os.makedirs('Percorsi')
